@@ -17,15 +17,25 @@ export interface AuthResponse {
   user: User;
 }
 
-// Equipment type
-export interface Equipment {
-  id: number;
-  serialNumber: string;
-  name: string;
+// Inspection type based on the API response
+export interface Inspection {
+  testId: number;
+  testType: number;
+  certNumber: string;
+  serialNo: string;
+  testDate: string;
+  validDate: string;
+  comments: string;
+  wwl: number;
+  heightLength: number;
   status: string;
-  lastInspection: string;
-  nextInspection: string;
-  location: string;
+  tagNumber: string;
+  equipDescription: string;
+  inspectType: string | null;
+  client: string;
+  site: string;
+  section: string;
+  responsible: string;
 }
 
 /**
@@ -87,28 +97,20 @@ export const authService = {
 };
 
 /**
- * Equipment service
+ * Inspections service
  */
-export const equipmentService = {
-  search: async (query: string, token: string): Promise<Equipment[]> => {
-    return apiRequest<Equipment[]>(
-      `/equipment/search?query=${encodeURIComponent(query)}`, 
+export const inspectionsService = {
+  getLatestBySerialNumber: async (serialNumber: string, token: string): Promise<Inspection> => {
+    return apiRequest<Inspection>(
+      `/inspections/serial/${encodeURIComponent(serialNumber)}/latest`, 
       { method: 'GET' }, 
       token
     );
   },
   
-  getBySerial: async (serialNumber: string, token: string): Promise<Equipment> => {
-    return apiRequest<Equipment>(
-      `/equipment/serial/${encodeURIComponent(serialNumber)}`, 
-      { method: 'GET' }, 
-      token
-    );
-  },
-  
-  getByNfcTag: async (tagId: string, token: string): Promise<Equipment> => {
-    return apiRequest<Equipment>(
-      `/equipment/nfc/${encodeURIComponent(tagId)}`, 
+  getLatestByTagNumber: async (tagNumber: string, token: string): Promise<Inspection> => {
+    return apiRequest<Inspection>(
+      `/inspections/tag/${encodeURIComponent(tagNumber)}/latest`, 
       { method: 'GET' }, 
       token
     );
