@@ -7,7 +7,6 @@ import {
   Container, 
   Stack,
   Text,
-  Group,
   Box,
   Center,
   rem,
@@ -26,7 +25,6 @@ import {
   IconArrowRight
 } from '@tabler/icons-react';
 import { Header } from '../components/Header';
-import { useAuth } from '../context/AuthContext';
 
 type SearchMethod = 'serial' | 'tag';
 
@@ -42,7 +40,6 @@ export function SearchScreen({ onSearch, loading }: SearchProps) {
   const [searchType, setSearchType] = useState<string>('serial');
   const [pulseOpacity, setPulseOpacity] = useState(0.3);
   const [pulseScale, setPulseScale] = useState(1);
-  const { user } = useAuth();
 
   // Simple pulse effect
   useEffect(() => {

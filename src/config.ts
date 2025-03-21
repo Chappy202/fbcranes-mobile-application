@@ -1,5 +1,5 @@
 // API Configuration
-export const API_URL = 'http://localhost:3000'; // Replace with your actual API URL
+export const API_URL = 'https://fbcranes-api.febserver.com';
 
 // Auth Configuration
 export const AUTH_STORAGE_KEY = 'fbcranes_auth';

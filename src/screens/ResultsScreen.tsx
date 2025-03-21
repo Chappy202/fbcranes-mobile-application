@@ -157,7 +157,7 @@ export function ResultsScreen({
           <Group justify="space-between" mb="md">
             <Button 
               variant="subtle" 
-              leftSection={<IconArrowLeft size={rem(16)} stroke={1.5} />}
+              leftSection={<IconArrowLeft size={16} stroke={1.5} />}
               onClick={onBack}
               radius="xl"
               px="xs"

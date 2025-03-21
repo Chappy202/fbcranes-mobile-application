@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { AUTH_STORAGE_KEY } from '../config';
-import { authService, User, AuthResponse } from '../services/api';
+import { authService, User } from '../services/api';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -63,7 +63,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return true;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
+      // Enhanced error handling to capture more details
+      let errorMessage = 'An unexpected error occurred';
+      
+      if (err instanceof Error) {
+        // Get the full error message and append any additional details
+        errorMessage = err.message;
+        
+        // Include stack trace in development mode if available
+        if (err.stack) {
+          console.error('Full error stack:', err.stack);
+        }
+        
+        // If error has additional response details from our API
+        const anyErr = err as any;
+        if (anyErr.response) {
+          errorMessage += ` (Status: ${anyErr.response.status})`;
+        }
+      } else {
+        // For non-Error objects, stringify them for display
+        try {
+          errorMessage = `Unknown error: ${JSON.stringify(err)}`;
+        } catch {
+          errorMessage = `Unknown error type: ${typeof err}`;
+        }
+      }
+      
+      console.error('Login error details:', errorMessage, err);
       setError(errorMessage);
       setLoading(false);
       return false;

@@ -7,7 +7,6 @@ import {
   Container, 
   Stack,
   Text,
-  Box,
   Flex,
   Alert
 } from '@mantine/core';
@@ -47,8 +46,16 @@ export function LoginScreen() {
             title="Authentication Error" 
             color="red" 
             mb="md"
+            styles={{
+              message: {
+                // Allow text to wrap properly
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word'
+              }
+            }}
           >
-            {error}
+            <Text size="sm" fw={500} mb="xs">Error Details:</Text>
+            <Text size="sm">{error}</Text>
           </Alert>
         )}
 

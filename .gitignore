@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 .DS_Store
+
+/src-tauri/target/
+/src-tauri/gen/schemas
